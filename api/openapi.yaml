@@ -1,0 +1,1448 @@
+openapi: 3.1.0
+info:
+  description: |-
+    Manage Entrywan resources programmatically using the API.
+
+    All API requests are authenticated using [IAM
+    tokens](https://entrywan.com/docs#iam).  Tokens can be generated
+    and retrieved from the [portal](https://portal.entrywan.com).  The
+    portal itself is an API client that uses an unrestricted token to
+    access resources for an account.
+
+    This documentation is generated using an OpenAPI 3.1.0
+    [specification](https://spec.openapis.org/oas/latest.html).  More
+    information about OpenAPI can be found on its
+    [site](https://openapis.org).  The current version of [Entrywan's
+    API spec](https://entrywan.com/openapi.yaml) is also available for
+    inspection.
+
+    On the left of this page are links to the <i>Endpoints</i> grouped
+    by tag and <i>Schemas</i> the API exposes.  <i>Endpoints</i> are
+    URLs that can be accessed with any HTTP client or device.
+    <i>Schemas</i> are machine-readable data models that represent
+    resources.
+
+    To learn more, have a look at the
+    [documentation](https://entrywan.com/docs).  If you have any
+    questions, contact [support](mailto:support@entrywan.com) or your
+    account representative.
+  title: Entrywan API
+  version: v1beta
+servers:
+- url: https://api.entrywan.com/v1beta
+security:
+- bearerAuth: []
+paths:
+  /instance:
+    get:
+      description: "Return a list of all compute instances for an account.  Includes\
+        \ instances in any state, including stopped instances."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Instance'
+                type: array
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+      summary: List instances
+      tags:
+      - Instance
+    post:
+      description: "Creates an instance and performs the initial boot.  After about\
+        \ 5 seconds, the instance is in _running_ state and ready to accept incoming\
+        \ SSH connections on port 22."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_instance_post_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_instance_post_200_response'
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+      summary: Add a new instance
+      tags:
+      - Instance
+  /instance/{id}:
+    delete:
+      description: ""
+      parameters:
+      - description: Instance id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Delete an instance
+      tags:
+      - Instance
+    get:
+      description: Returns a single instance
+      parameters:
+      - description: Instance ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instance'
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Get instance by ID
+      tags:
+      - Instance
+  /instance/{id}/reboot:
+    patch:
+      description: Reboot an instance
+      parameters:
+      - description: Instance ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Reboot an instance
+      tags:
+      - Instance
+  /instance/{id}/stop:
+    patch:
+      description: Stop an instance
+      parameters:
+      - description: Instance ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Stop an instance
+      tags:
+      - Instance
+  /instance/{id}/start:
+    patch:
+      description: Start an instance
+      parameters:
+      - description: Instance ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Start an instance
+      tags:
+      - Instance
+  /instance/{id}/snapshot:
+    get:
+      description: List instance snapshots.  The name of each snapshot is the UNIX
+        timestamp when it was taken.
+      parameters:
+      - description: Instance ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                description: UNIX timestamps when snapshots where taken
+                items:
+                  type: string
+                type: array
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: List instance snapshots
+      tags:
+      - Instance
+    put:
+      description: Snapshot an instance
+      parameters:
+      - description: Instance ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Snapshot an instance
+      tags:
+      - Instance
+  /instance/{id}/snapshot/{name}:
+    delete:
+      description: Delete a snapshot
+      parameters:
+      - description: Instance ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Name of snapshot
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Delete a snapshot
+      tags:
+      - Instance
+    put:
+      description: Revert an instance to its state to that of a snapshot
+      parameters:
+      - description: Instance ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Name of snapshot
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Revert to snapshot
+      tags:
+      - Instance
+  /instance/{id}/firewall:
+    put:
+      description: Apply firewall to instance
+      parameters:
+      - description: Instance ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Apply firewall to instance
+      tags:
+      - Firewall
+  /sshkey:
+    get:
+      description: List SSH keys
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SSHkey'
+                type: array
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+      summary: List SSH keys
+      tags:
+      - SSHkey
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_sshkey_post_request'
+        required: true
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+      summary: Create SSH key
+      tags:
+      - SSHkey
+  /sshkey/{id}:
+    delete:
+      parameters:
+      - description: ID of SSH key
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Delete SSH key
+      tags:
+      - SSHkey
+  /firewall:
+    get:
+      description: List firewalls
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Firewall'
+                type: array
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+      summary: List firewalls
+      tags:
+      - Firewall
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_firewall_post_request'
+        required: true
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+      summary: Add a firewall
+      tags:
+      - Firewall
+  /firewall/{id}:
+    delete:
+      parameters:
+      - description: ID of firewall
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Delete a firewall
+      tags:
+      - Firewall
+  /vpc:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/VPC'
+                type: array
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+      summary: List VPC
+      tags:
+      - VPC
+  /vpc/{id}:
+    delete:
+      parameters:
+      - description: ID of VPC
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Delete VPC
+      tags:
+      - VPC
+    patch:
+      parameters:
+      - description: VPC ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_vpc__id__patch_request'
+        required: true
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Remove member from VPC
+      tags:
+      - VPC
+    post:
+      parameters:
+      - description: VPC ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_vpc__id__post_request'
+        required: true
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+      summary: Create a VPC
+      tags:
+      - VPC
+    put:
+      parameters:
+      - description: VPC ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_vpc__id__put_request'
+        required: true
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Add member to VPC
+      tags:
+      - VPC
+  /loadbalancer:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LoadBalancer'
+                type: array
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+      summary: List load balancers
+      tags:
+      - LoadBalancer
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_loadbalancer_post_request'
+        required: true
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+      summary: Create a load balancer
+      tags:
+      - LoadBalancer
+  /loadbalancer/{id}:
+    delete:
+      parameters:
+      - description: Load balancer ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Delete load balancer
+      tags:
+      - LoadBalancer
+    put:
+      parameters:
+      - description: Load balancer ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Update load balancer targets
+      tags:
+      - LoadBalancer
+  /cluster:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Cluster'
+                type: array
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+      summary: List kubernetes clusters
+      tags:
+      - Cluster
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_cluster_post_request'
+        required: true
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+      summary: Create a kubernetes cluster
+      tags:
+      - Cluster
+  /cluster/{id}:
+    delete:
+      parameters:
+      - description: Cluster ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Delete cluster
+      tags:
+      - Cluster
+    get:
+      parameters:
+      - description: Cluster ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Get a kubernetes cluster
+      tags:
+      - Cluster
+  /cluster/{id}/kubeconfig:
+    get:
+      parameters:
+      - description: Cluster ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Fetch the kubeconfig file for a cluster
+      tags:
+      - Cluster
+  /cluster/{id}/rotate:
+    patch:
+      description: Rotate certificates for the cluster.  This invalidates the kubeconfig
+        secrets generated.
+      parameters:
+      - description: Cluster ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Rotate credentials
+      tags:
+      - Cluster
+  /cluster/{id}/scale:
+    put:
+      description: Scale the number of worker nodes in a cluster up or down
+      parameters:
+      - description: Cluster ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_cluster__id__scale_put_request'
+        required: true
+      responses:
+        "200":
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Scale a cluster up or down
+      tags:
+      - Cluster
+  /tag/{id}:
+    get:
+      description: Returns tag information for a resource
+      parameters:
+      - description: ID of resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Get tags for a resource ID
+      tags:
+      - Tag
+    patch:
+      description: Removes tags from a resource
+      parameters:
+      - description: ID of resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Removes tags for a resource ID
+      tags:
+      - Tag
+    put:
+      description: Adds tags to a resource
+      parameters:
+      - description: ID of resource
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+          description: Success
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+      summary: Set tags for a resource ID
+      tags:
+      - Tag
+components:
+  responses:
+    BadRequestError:
+      content:
+        application/json:
+          schema:
+            properties:
+              success:
+                type: boolean
+              code:
+                enum:
+                - 400
+                type: string
+              message:
+                type: string
+      description: Bad request
+    UnauthorizedError:
+      content:
+        application/json:
+          schema:
+            properties:
+              success:
+                type: boolean
+              code:
+                enum:
+                - 401
+                type: string
+              message:
+                type: string
+      description: Access token is missing or invalid
+    NotFoundError:
+      content:
+        application/json:
+          schema:
+            properties:
+              success:
+                type: boolean
+              code:
+                enum:
+                - 404
+                type: string
+              message:
+                type: string
+      description: Resource cannot be found
+  schemas:
+    Instance:
+      example:
+        hostname: hostname
+        disk: ""
+        cpus: ""
+        location: us1
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        state: running
+        ip4: ip4
+        account: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        ram: ""
+      properties:
+        id:
+          format: uuid
+          type: string
+        state:
+          description: Instance state
+          enum:
+          - running
+          - stopped
+          - creating
+          - deleting
+          type: string
+        hostname:
+          description: Instance hostname
+          type: string
+        account:
+          description: Instance account owner
+          format: uuid
+          type: string
+        ip4:
+          format: ipv4
+          type: string
+          descripton: Instance primay IPv4 address
+        location:
+          description: Instance datacenter location
+          enum:
+          - us1
+          type: string
+        cpus:
+          description: Instance CPU cores
+          type: int
+        ram:
+          description: Instance memory in gigabytes (GB)
+          type: int
+        disk:
+          description: Instance hard drive size in gigabytes (GB)
+          type: int
+    SSHkey:
+      example:
+        created: created
+        name: name
+        comment: comment
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        pub: pub
+        type: rsa
+        account: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          format: uuid
+          type: string
+        account:
+          description: SSH key account owner
+          format: uuid
+          type: string
+        created:
+          description: SSH key creation date
+          type: string
+        name:
+          description: SSH key name
+          type: string
+        pub:
+          description: SSH public key
+          type: string
+        type:
+          description: SSH key algorithm
+          enum:
+          - rsa
+          - dsa
+          - ecdsa
+          - ed25519
+          type: string
+        comment:
+          description: SSH key description
+          type: string
+    Firewall:
+      example:
+        created: created
+        rules:
+          protocol: all
+          port: 0
+          src: src
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        account: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          format: uuid
+          type: string
+        account:
+          description: Firewall account owner
+          format: uuid
+          type: string
+        created:
+          description: Firewall creation date
+          type: string
+        rules:
+          $ref: '#/components/schemas/_firewall_post_request_rules_inner'
+    VPC:
+      example:
+        port: 0
+        created: created
+        prefix: prefix
+        members:
+        - privkey: privkey
+          ippublic: ippublic
+          ipprivate: ipprivate
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          config: config
+          pubkey: pubkey
+        - privkey: privkey
+          ippublic: ippublic
+          ipprivate: ipprivate
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          config: config
+          pubkey: pubkey
+        name: name
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        account: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          format: uuid
+          type: string
+        account:
+          description: VPC account owner
+          format: uuid
+          type: string
+        created:
+          description: VPC creation date
+          type: string
+        name:
+          type: string
+        prefix:
+          type: string
+        port:
+          type: integer
+        members:
+          items:
+            $ref: '#/components/schemas/VPC_members_inner'
+          type: array
+    LoadBalancer:
+      example:
+        listeners:
+        - port: 0
+          name: name
+          targets:
+          - port: 6
+            ip: ip
+          - port: 6
+            ip: ip
+        - port: 0
+          name: name
+          targets:
+          - port: 6
+            ip: ip
+          - port: 6
+            ip: ip
+        created: created
+        ip: ip
+        name: name
+        location: location
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        account: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          format: uuid
+          type: string
+        account:
+          description: Load balancer account owner
+          format: uuid
+          type: string
+        created:
+          description: Load balancer creation date
+          type: string
+        name:
+          type: string
+        location:
+          type: string
+        ip:
+          format: ipv4
+          type: string
+        listeners:
+          items:
+            $ref: '#/components/schemas/_loadbalancer_post_request_listeners_inner'
+          type: array
+    Cluster:
+      example:
+        size: 0
+        created: created
+        name: name
+        location: location
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        state: creating
+        account: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        apiserver: apiserver
+        cni: flannel
+      properties:
+        id:
+          format: uuid
+          type: string
+        account:
+          description: Load balancer account owner
+          format: uuid
+          type: string
+        created:
+          description: Load balancer creation date
+          type: string
+        name:
+          type: string
+        location:
+          type: string
+        size:
+          description: Number of worker nodes assigned to the cluster
+          type: integer
+        state:
+          enum:
+          - creating
+          - running
+          - creating control plane
+          - spawning worker nodes
+          - generating credentials
+          - formatting credentials
+          - deleting
+          type: string
+        apiserver:
+          format: ipv4
+          type: string
+        cni:
+          enum:
+          - flannel
+          - calico
+          type: string
+    Tag:
+      additionalProperties:
+        type: string
+      description: "A map of key/value pairs, one for each tag assigned to the resource.\
+        \  Both key and value are strings."
+    _instance_post_request:
+      properties:
+        cpu:
+          description: Number of CPU cores
+          type: integer
+        ram:
+          description: Gigabytes (GB) of memory
+          type: integer
+        disk:
+          description: Hard drive size in gigabytes (GB)
+          type: integer
+        location:
+          description: Data center location
+          type: string
+        userdata:
+          description: Initial script to be performed on first boot
+          type: string
+        sshkey:
+          description: Name of ssh key to be planted on instance for root user
+          type: string
+        os:
+          description: Name of operating system image
+          type: string
+        hostname:
+          description: Hostname
+          type: string
+      required:
+      - cpu
+      - disk
+      - location
+      - ram
+      - sshkey
+    _instance_post_200_response:
+      example:
+        state: creating
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        ip4: ip4
+      properties:
+        state:
+          enum:
+          - creating
+          type: string
+        id:
+          format: uuid
+          type: string
+        ip4:
+          format: ipv4
+          type: string
+    _sshkey_post_request:
+      properties:
+        name:
+          description: Name of the ssh key
+          type: string
+        pub:
+          description: SSH public key
+          type: string
+    _firewall_post_request_rules_inner:
+      example:
+        protocol: all
+        port: 0
+        src: src
+      properties:
+        protocol:
+          enum:
+          - all
+          - tcp
+          - ucp
+          - udplite
+          - icmp
+          - icmpv6
+          - esp
+          - ah
+          - sctp
+          - mh
+          type: string
+        port:
+          type: integer
+        src:
+          type: string
+    _firewall_post_request:
+      properties:
+        name:
+          description: Name of the firewall
+          type: string
+        rules:
+          items:
+            $ref: '#/components/schemas/_firewall_post_request_rules_inner'
+          type: array
+    _vpc__id__put_request:
+      properties:
+        ip4public:
+          description: Public IPv4 address of the member
+          type: string
+        ip4private:
+          description: Private IPv4 address of the member
+          type: string
+      required:
+      - ip4public
+    _vpc__id__post_request:
+      properties:
+        name:
+          description: Name of the VPC
+          type: string
+        prefix:
+          description: CIDR prefix of the VPC
+          type: string
+    _vpc__id__patch_request:
+      properties:
+        ip4private:
+          description: Private IPv4 address of the member
+          type: string
+      required:
+      - ip4private
+    _loadbalancer_post_request_listeners_inner_targets_inner:
+      example:
+        port: 6
+        ip: ip
+      properties:
+        ip:
+          type: string
+        port:
+          type: integer
+    _loadbalancer_post_request_listeners_inner:
+      example:
+        port: 0
+        name: name
+        targets:
+        - port: 6
+          ip: ip
+        - port: 6
+          ip: ip
+      properties:
+        name:
+          type: string
+        port:
+          type: integer
+        targets:
+          items:
+            $ref: '#/components/schemas/_loadbalancer_post_request_listeners_inner_targets_inner'
+          type: array
+    _loadbalancer_post_request:
+      properties:
+        name:
+          description: Name of the load balancer
+          type: string
+        location:
+          description: Location of the load balancer
+          enum:
+          - us1
+          type: string
+        listeners:
+          items:
+            $ref: '#/components/schemas/_loadbalancer_post_request_listeners_inner'
+          type: array
+    _cluster_post_request:
+      properties:
+        name:
+          description: Cluster name
+          type: string
+        location:
+          description: Cluster location
+          enum:
+          - us1
+          type: string
+        size:
+          description: Number of initial worker nodes
+          type: integer
+        cni:
+          description: Networking plugin
+          enum:
+          - flannel
+          - calico
+          type: string
+    _cluster__id__scale_put_request:
+      properties:
+        size:
+          description: Number of worker nodes to scale the cluster to
+          type: integer
+    VPC_members_inner:
+      example:
+        privkey: privkey
+        ippublic: ippublic
+        ipprivate: ipprivate
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        config: config
+        pubkey: pubkey
+      properties:
+        id:
+          format: uuid
+          type: string
+        ippublic:
+          format: ipv4
+          type: string
+        ipprivate:
+          format: ipv4
+          type: string
+        pubkey:
+          type: string
+        privkey:
+          type: string
+        config:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      scheme: bearer
+      type: http
