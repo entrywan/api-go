@@ -380,6 +380,10 @@ paths:
         required: true
       responses:
         "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_sshkey_post_200_response'
           description: Success
         "400":
           $ref: '#/components/responses/BadRequestError'
@@ -997,14 +1001,14 @@ components:
     Instance:
       example:
         hostname: hostname
-        disk: ""
-        cpus: ""
+        disk: 1
+        cpus: 0
         location: us1
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         state: running
         ip4: ip4
         account: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        ram: ""
+        ram: 6
       properties:
         id:
           format: uuid
@@ -1035,13 +1039,13 @@ components:
           type: string
         cpus:
           description: Instance CPU cores
-          type: int
+          type: integer
         ram:
           description: Instance memory in gigabytes (GB)
-          type: int
+          type: integer
         disk:
           description: Instance hard drive size in gigabytes (GB)
-          type: int
+          type: integer
     SSHkey:
       example:
         created: created
@@ -1295,6 +1299,13 @@ components:
           type: string
         pub:
           description: SSH public key
+          type: string
+    _sshkey_post_200_response:
+      example:
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          format: uuid
           type: string
     _firewall_post_request_rules_inner:
       example:

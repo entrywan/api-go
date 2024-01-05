@@ -30,11 +30,11 @@ type Instance struct {
 	// Instance datacenter location
 	Location *string `json:"location,omitempty"`
 	// Instance CPU cores
-	Cpus *int `json:"cpus,omitempty"`
+	Cpus *int32 `json:"cpus,omitempty"`
 	// Instance memory in gigabytes (GB)
-	Ram *int `json:"ram,omitempty"`
+	Ram *int32 `json:"ram,omitempty"`
 	// Instance hard drive size in gigabytes (GB)
-	Disk *int `json:"disk,omitempty"`
+	Disk *int32 `json:"disk,omitempty"`
 }
 
 // NewInstance instantiates a new Instance object
@@ -247,9 +247,9 @@ func (o *Instance) SetLocation(v string) {
 }
 
 // GetCpus returns the Cpus field value if set, zero value otherwise.
-func (o *Instance) GetCpus() int {
+func (o *Instance) GetCpus() int32 {
 	if o == nil || IsNil(o.Cpus) {
-		var ret int
+		var ret int32
 		return ret
 	}
 	return *o.Cpus
@@ -257,7 +257,7 @@ func (o *Instance) GetCpus() int {
 
 // GetCpusOk returns a tuple with the Cpus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Instance) GetCpusOk() (*int, bool) {
+func (o *Instance) GetCpusOk() (*int32, bool) {
 	if o == nil || IsNil(o.Cpus) {
 		return nil, false
 	}
@@ -273,15 +273,15 @@ func (o *Instance) HasCpus() bool {
 	return false
 }
 
-// SetCpus gets a reference to the given int and assigns it to the Cpus field.
-func (o *Instance) SetCpus(v int) {
+// SetCpus gets a reference to the given int32 and assigns it to the Cpus field.
+func (o *Instance) SetCpus(v int32) {
 	o.Cpus = &v
 }
 
 // GetRam returns the Ram field value if set, zero value otherwise.
-func (o *Instance) GetRam() int {
+func (o *Instance) GetRam() int32 {
 	if o == nil || IsNil(o.Ram) {
-		var ret int
+		var ret int32
 		return ret
 	}
 	return *o.Ram
@@ -289,7 +289,7 @@ func (o *Instance) GetRam() int {
 
 // GetRamOk returns a tuple with the Ram field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Instance) GetRamOk() (*int, bool) {
+func (o *Instance) GetRamOk() (*int32, bool) {
 	if o == nil || IsNil(o.Ram) {
 		return nil, false
 	}
@@ -305,15 +305,15 @@ func (o *Instance) HasRam() bool {
 	return false
 }
 
-// SetRam gets a reference to the given int and assigns it to the Ram field.
-func (o *Instance) SetRam(v int) {
+// SetRam gets a reference to the given int32 and assigns it to the Ram field.
+func (o *Instance) SetRam(v int32) {
 	o.Ram = &v
 }
 
 // GetDisk returns the Disk field value if set, zero value otherwise.
-func (o *Instance) GetDisk() int {
+func (o *Instance) GetDisk() int32 {
 	if o == nil || IsNil(o.Disk) {
-		var ret int
+		var ret int32
 		return ret
 	}
 	return *o.Disk
@@ -321,7 +321,7 @@ func (o *Instance) GetDisk() int {
 
 // GetDiskOk returns a tuple with the Disk field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Instance) GetDiskOk() (*int, bool) {
+func (o *Instance) GetDiskOk() (*int32, bool) {
 	if o == nil || IsNil(o.Disk) {
 		return nil, false
 	}
@@ -337,8 +337,8 @@ func (o *Instance) HasDisk() bool {
 	return false
 }
 
-// SetDisk gets a reference to the given int and assigns it to the Disk field.
-func (o *Instance) SetDisk(v int) {
+// SetDisk gets a reference to the given int32 and assigns it to the Disk field.
+func (o *Instance) SetDisk(v int32) {
 	o.Disk = &v
 }
 

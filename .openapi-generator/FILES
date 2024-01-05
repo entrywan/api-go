@@ -30,6 +30,7 @@ docs/LoadbalancerPostRequestListenersInner.md
 docs/LoadbalancerPostRequestListenersInnerTargetsInner.md
 docs/SSHkey.md
 docs/SSHkeyAPI.md
+docs/SshkeyPost200Response.md
 docs/SshkeyPostRequest.md
 docs/TagAPI.md
 docs/VPC.md
@@ -50,6 +51,7 @@ model__instance_post_request.go
 model__loadbalancer_post_request.go
 model__loadbalancer_post_request_listeners_inner.go
 model__loadbalancer_post_request_listeners_inner_targets_inner.go
+model__sshkey_post_200_response.go
 model__sshkey_post_request.go
 model__vpc__id__patch_request.go
 model__vpc__id__post_request.go

@@ -10,9 +10,9 @@ Name | Type | Description | Notes
 **Account** | Pointer to **string** | Instance account owner | [optional] 
 **Ip4** | Pointer to **string** |  | [optional] 
 **Location** | Pointer to **string** | Instance datacenter location | [optional] 
-**Cpus** | Pointer to **int** | Instance CPU cores | [optional] 
-**Ram** | Pointer to **int** | Instance memory in gigabytes (GB) | [optional] 
-**Disk** | Pointer to **int** | Instance hard drive size in gigabytes (GB) | [optional] 
+**Cpus** | Pointer to **int32** | Instance CPU cores | [optional] 
+**Ram** | Pointer to **int32** | Instance memory in gigabytes (GB) | [optional] 
+**Disk** | Pointer to **int32** | Instance hard drive size in gigabytes (GB) | [optional] 
 
 ## Methods
 
@@ -185,20 +185,20 @@ HasLocation returns a boolean if a field has been set.
 
 ### GetCpus
 
-`func (o *Instance) GetCpus() int`
+`func (o *Instance) GetCpus() int32`
 
 GetCpus returns the Cpus field if non-nil, zero value otherwise.
 
 ### GetCpusOk
 
-`func (o *Instance) GetCpusOk() (*int, bool)`
+`func (o *Instance) GetCpusOk() (*int32, bool)`
 
 GetCpusOk returns a tuple with the Cpus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCpus
 
-`func (o *Instance) SetCpus(v int)`
+`func (o *Instance) SetCpus(v int32)`
 
 SetCpus sets Cpus field to given value.
 
@@ -210,20 +210,20 @@ HasCpus returns a boolean if a field has been set.
 
 ### GetRam
 
-`func (o *Instance) GetRam() int`
+`func (o *Instance) GetRam() int32`
 
 GetRam returns the Ram field if non-nil, zero value otherwise.
 
 ### GetRamOk
 
-`func (o *Instance) GetRamOk() (*int, bool)`
+`func (o *Instance) GetRamOk() (*int32, bool)`
 
 GetRamOk returns a tuple with the Ram field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRam
 
-`func (o *Instance) SetRam(v int)`
+`func (o *Instance) SetRam(v int32)`
 
 SetRam sets Ram field to given value.
 
@@ -235,20 +235,20 @@ HasRam returns a boolean if a field has been set.
 
 ### GetDisk
 
-`func (o *Instance) GetDisk() int`
+`func (o *Instance) GetDisk() int32`
 
 GetDisk returns the Disk field if non-nil, zero value otherwise.
 
 ### GetDiskOk
 
-`func (o *Instance) GetDiskOk() (*int, bool)`
+`func (o *Instance) GetDiskOk() (*int32, bool)`
 
 GetDiskOk returns a tuple with the Disk field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDisk
 
-`func (o *Instance) SetDisk(v int)`
+`func (o *Instance) SetDisk(v int32)`
 
 SetDisk sets Disk field to given value.
 

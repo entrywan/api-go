@@ -276,7 +276,7 @@ func (r ApiSshkeyPostRequest) SshkeyPostRequest(sshkeyPostRequest SshkeyPostRequ
 	return r
 }
 
-func (r ApiSshkeyPostRequest) Execute() (*http.Response, error) {
+func (r ApiSshkeyPostRequest) Execute() (*SshkeyPost200Response, *http.Response, error) {
 	return r.ApiService.SshkeyPostExecute(r)
 }
 
@@ -294,16 +294,18 @@ func (a *SSHkeyAPIService) SshkeyPost(ctx context.Context) ApiSshkeyPostRequest 
 }
 
 // Execute executes the request
-func (a *SSHkeyAPIService) SshkeyPostExecute(r ApiSshkeyPostRequest) (*http.Response, error) {
+//  @return SshkeyPost200Response
+func (a *SSHkeyAPIService) SshkeyPostExecute(r ApiSshkeyPostRequest) (*SshkeyPost200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *SshkeyPost200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SSHkeyAPIService.SshkeyPost")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/sshkey"
@@ -312,7 +314,7 @@ func (a *SSHkeyAPIService) SshkeyPostExecute(r ApiSshkeyPostRequest) (*http.Resp
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.sshkeyPostRequest == nil {
-		return nil, reportError("sshkeyPostRequest is required and must be specified")
+		return localVarReturnValue, nil, reportError("sshkeyPostRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -336,19 +338,19 @@ func (a *SSHkeyAPIService) SshkeyPostExecute(r ApiSshkeyPostRequest) (*http.Resp
 	localVarPostBody = r.sshkeyPostRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -361,24 +363,33 @@ func (a *SSHkeyAPIService) SshkeyPostExecute(r ApiSshkeyPostRequest) (*http.Resp
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v interface{}
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

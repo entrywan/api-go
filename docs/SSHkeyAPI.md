@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 
 ## SshkeyPost
 
-> SshkeyPost(ctx).SshkeyPostRequest(sshkeyPostRequest).Execute()
+> SshkeyPost200Response SshkeyPost(ctx).SshkeyPostRequest(sshkeyPostRequest).Execute()
 
 Create SSH key
 
@@ -160,11 +160,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.SSHkeyAPI.SshkeyPost(context.Background()).SshkeyPostRequest(sshkeyPostRequest).Execute()
+	resp, r, err := apiClient.SSHkeyAPI.SshkeyPost(context.Background()).SshkeyPostRequest(sshkeyPostRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SSHkeyAPI.SshkeyPost``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `SshkeyPost`: SshkeyPost200Response
+	fmt.Fprintf(os.Stdout, "Response from `SSHkeyAPI.SshkeyPost`: %v\n", resp)
 }
 ```
 
@@ -183,7 +185,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**SshkeyPost200Response**](SshkeyPost200Response.md)
 
 ### Authorization
 
