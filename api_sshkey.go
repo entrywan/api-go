@@ -20,15 +20,15 @@ import (
 )
 
 
-// SSHkeyAPIService SSHkeyAPI service
-type SSHkeyAPIService service
+// SshkeyAPIService SshkeyAPI service
+type SshkeyAPIService service
 
 type ApiSshkeyGetRequest struct {
 	ctx context.Context
-	ApiService *SSHkeyAPIService
+	ApiService *SshkeyAPIService
 }
 
-func (r ApiSshkeyGetRequest) Execute() ([]SSHkey, *http.Response, error) {
+func (r ApiSshkeyGetRequest) Execute() ([]Sshkey, *http.Response, error) {
 	return r.ApiService.SshkeyGetExecute(r)
 }
 
@@ -40,7 +40,7 @@ List SSH keys
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiSshkeyGetRequest
 */
-func (a *SSHkeyAPIService) SshkeyGet(ctx context.Context) ApiSshkeyGetRequest {
+func (a *SshkeyAPIService) SshkeyGet(ctx context.Context) ApiSshkeyGetRequest {
 	return ApiSshkeyGetRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -48,16 +48,16 @@ func (a *SSHkeyAPIService) SshkeyGet(ctx context.Context) ApiSshkeyGetRequest {
 }
 
 // Execute executes the request
-//  @return []SSHkey
-func (a *SSHkeyAPIService) SshkeyGetExecute(r ApiSshkeyGetRequest) ([]SSHkey, *http.Response, error) {
+//  @return []Sshkey
+func (a *SshkeyAPIService) SshkeyGetExecute(r ApiSshkeyGetRequest) ([]Sshkey, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []SSHkey
+		localVarReturnValue  []Sshkey
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SSHkeyAPIService.SshkeyGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SshkeyAPIService.SshkeyGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -145,7 +145,7 @@ func (a *SSHkeyAPIService) SshkeyGetExecute(r ApiSshkeyGetRequest) ([]SSHkey, *h
 
 type ApiSshkeyIdDeleteRequest struct {
 	ctx context.Context
-	ApiService *SSHkeyAPIService
+	ApiService *SshkeyAPIService
 	id string
 }
 
@@ -160,7 +160,7 @@ SshkeyIdDelete Delete SSH key
  @param id ID of SSH key
  @return ApiSshkeyIdDeleteRequest
 */
-func (a *SSHkeyAPIService) SshkeyIdDelete(ctx context.Context, id string) ApiSshkeyIdDeleteRequest {
+func (a *SshkeyAPIService) SshkeyIdDelete(ctx context.Context, id string) ApiSshkeyIdDeleteRequest {
 	return ApiSshkeyIdDeleteRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -169,14 +169,14 @@ func (a *SSHkeyAPIService) SshkeyIdDelete(ctx context.Context, id string) ApiSsh
 }
 
 // Execute executes the request
-func (a *SSHkeyAPIService) SshkeyIdDeleteExecute(r ApiSshkeyIdDeleteRequest) (*http.Response, error) {
+func (a *SshkeyAPIService) SshkeyIdDeleteExecute(r ApiSshkeyIdDeleteRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SSHkeyAPIService.SshkeyIdDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SshkeyAPIService.SshkeyIdDelete")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -267,7 +267,7 @@ func (a *SSHkeyAPIService) SshkeyIdDeleteExecute(r ApiSshkeyIdDeleteRequest) (*h
 
 type ApiSshkeyPostRequest struct {
 	ctx context.Context
-	ApiService *SSHkeyAPIService
+	ApiService *SshkeyAPIService
 	sshkeyPostRequest *SshkeyPostRequest
 }
 
@@ -286,7 +286,7 @@ SshkeyPost Create SSH key
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiSshkeyPostRequest
 */
-func (a *SSHkeyAPIService) SshkeyPost(ctx context.Context) ApiSshkeyPostRequest {
+func (a *SshkeyAPIService) SshkeyPost(ctx context.Context) ApiSshkeyPostRequest {
 	return ApiSshkeyPostRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -295,7 +295,7 @@ func (a *SSHkeyAPIService) SshkeyPost(ctx context.Context) ApiSshkeyPostRequest 
 
 // Execute executes the request
 //  @return SshkeyPost200Response
-func (a *SSHkeyAPIService) SshkeyPostExecute(r ApiSshkeyPostRequest) (*SshkeyPost200Response, *http.Response, error) {
+func (a *SshkeyAPIService) SshkeyPostExecute(r ApiSshkeyPostRequest) (*SshkeyPost200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -303,7 +303,7 @@ func (a *SSHkeyAPIService) SshkeyPostExecute(r ApiSshkeyPostRequest) (*SshkeyPos
 		localVarReturnValue  *SshkeyPost200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SSHkeyAPIService.SshkeyPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SshkeyAPIService.SshkeyPost")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

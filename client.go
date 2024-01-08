@@ -57,7 +57,7 @@ type APIClient struct {
 
 	LoadBalancerAPI *LoadBalancerAPIService
 
-	SSHkeyAPI *SSHkeyAPIService
+	SshkeyAPI *SshkeyAPIService
 
 	TagAPI *TagAPIService
 
@@ -84,7 +84,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.FirewallAPI = (*FirewallAPIService)(&c.common)
 	c.InstanceAPI = (*InstanceAPIService)(&c.common)
 	c.LoadBalancerAPI = (*LoadBalancerAPIService)(&c.common)
-	c.SSHkeyAPI = (*SSHkeyAPIService)(&c.common)
+	c.SshkeyAPI = (*SshkeyAPIService)(&c.common)
 	c.TagAPI = (*TagAPIService)(&c.common)
 	c.VPCAPI = (*VPCAPIService)(&c.common)
 

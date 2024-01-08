@@ -14,11 +14,11 @@ import (
 	"encoding/json"
 )
 
-// checks if the SSHkey type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &SSHkey{}
+// checks if the Sshkey type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Sshkey{}
 
-// SSHkey struct for SSHkey
-type SSHkey struct {
+// Sshkey struct for Sshkey
+type Sshkey struct {
 	Id *string `json:"id,omitempty"`
 	// SSH key account owner
 	Account *string `json:"account,omitempty"`
@@ -34,25 +34,25 @@ type SSHkey struct {
 	Comment *string `json:"comment,omitempty"`
 }
 
-// NewSSHkey instantiates a new SSHkey object
+// NewSshkey instantiates a new Sshkey object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSSHkey() *SSHkey {
-	this := SSHkey{}
+func NewSshkey() *Sshkey {
+	this := Sshkey{}
 	return &this
 }
 
-// NewSSHkeyWithDefaults instantiates a new SSHkey object
+// NewSshkeyWithDefaults instantiates a new Sshkey object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewSSHkeyWithDefaults() *SSHkey {
-	this := SSHkey{}
+func NewSshkeyWithDefaults() *Sshkey {
+	this := Sshkey{}
 	return &this
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
-func (o *SSHkey) GetId() string {
+func (o *Sshkey) GetId() string {
 	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
@@ -62,7 +62,7 @@ func (o *SSHkey) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SSHkey) GetIdOk() (*string, bool) {
+func (o *Sshkey) GetIdOk() (*string, bool) {
 	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
@@ -70,7 +70,7 @@ func (o *SSHkey) GetIdOk() (*string, bool) {
 }
 
 // HasId returns a boolean if a field has been set.
-func (o *SSHkey) HasId() bool {
+func (o *Sshkey) HasId() bool {
 	if o != nil && !IsNil(o.Id) {
 		return true
 	}
@@ -79,12 +79,12 @@ func (o *SSHkey) HasId() bool {
 }
 
 // SetId gets a reference to the given string and assigns it to the Id field.
-func (o *SSHkey) SetId(v string) {
+func (o *Sshkey) SetId(v string) {
 	o.Id = &v
 }
 
 // GetAccount returns the Account field value if set, zero value otherwise.
-func (o *SSHkey) GetAccount() string {
+func (o *Sshkey) GetAccount() string {
 	if o == nil || IsNil(o.Account) {
 		var ret string
 		return ret
@@ -94,7 +94,7 @@ func (o *SSHkey) GetAccount() string {
 
 // GetAccountOk returns a tuple with the Account field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SSHkey) GetAccountOk() (*string, bool) {
+func (o *Sshkey) GetAccountOk() (*string, bool) {
 	if o == nil || IsNil(o.Account) {
 		return nil, false
 	}
@@ -102,7 +102,7 @@ func (o *SSHkey) GetAccountOk() (*string, bool) {
 }
 
 // HasAccount returns a boolean if a field has been set.
-func (o *SSHkey) HasAccount() bool {
+func (o *Sshkey) HasAccount() bool {
 	if o != nil && !IsNil(o.Account) {
 		return true
 	}
@@ -111,12 +111,12 @@ func (o *SSHkey) HasAccount() bool {
 }
 
 // SetAccount gets a reference to the given string and assigns it to the Account field.
-func (o *SSHkey) SetAccount(v string) {
+func (o *Sshkey) SetAccount(v string) {
 	o.Account = &v
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *SSHkey) GetCreated() string {
+func (o *Sshkey) GetCreated() string {
 	if o == nil || IsNil(o.Created) {
 		var ret string
 		return ret
@@ -126,7 +126,7 @@ func (o *SSHkey) GetCreated() string {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SSHkey) GetCreatedOk() (*string, bool) {
+func (o *Sshkey) GetCreatedOk() (*string, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -134,7 +134,7 @@ func (o *SSHkey) GetCreatedOk() (*string, bool) {
 }
 
 // HasCreated returns a boolean if a field has been set.
-func (o *SSHkey) HasCreated() bool {
+func (o *Sshkey) HasCreated() bool {
 	if o != nil && !IsNil(o.Created) {
 		return true
 	}
@@ -143,12 +143,12 @@ func (o *SSHkey) HasCreated() bool {
 }
 
 // SetCreated gets a reference to the given string and assigns it to the Created field.
-func (o *SSHkey) SetCreated(v string) {
+func (o *Sshkey) SetCreated(v string) {
 	o.Created = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
-func (o *SSHkey) GetName() string {
+func (o *Sshkey) GetName() string {
 	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
@@ -158,7 +158,7 @@ func (o *SSHkey) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SSHkey) GetNameOk() (*string, bool) {
+func (o *Sshkey) GetNameOk() (*string, bool) {
 	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
@@ -166,7 +166,7 @@ func (o *SSHkey) GetNameOk() (*string, bool) {
 }
 
 // HasName returns a boolean if a field has been set.
-func (o *SSHkey) HasName() bool {
+func (o *Sshkey) HasName() bool {
 	if o != nil && !IsNil(o.Name) {
 		return true
 	}
@@ -175,12 +175,12 @@ func (o *SSHkey) HasName() bool {
 }
 
 // SetName gets a reference to the given string and assigns it to the Name field.
-func (o *SSHkey) SetName(v string) {
+func (o *Sshkey) SetName(v string) {
 	o.Name = &v
 }
 
 // GetPub returns the Pub field value if set, zero value otherwise.
-func (o *SSHkey) GetPub() string {
+func (o *Sshkey) GetPub() string {
 	if o == nil || IsNil(o.Pub) {
 		var ret string
 		return ret
@@ -190,7 +190,7 @@ func (o *SSHkey) GetPub() string {
 
 // GetPubOk returns a tuple with the Pub field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SSHkey) GetPubOk() (*string, bool) {
+func (o *Sshkey) GetPubOk() (*string, bool) {
 	if o == nil || IsNil(o.Pub) {
 		return nil, false
 	}
@@ -198,7 +198,7 @@ func (o *SSHkey) GetPubOk() (*string, bool) {
 }
 
 // HasPub returns a boolean if a field has been set.
-func (o *SSHkey) HasPub() bool {
+func (o *Sshkey) HasPub() bool {
 	if o != nil && !IsNil(o.Pub) {
 		return true
 	}
@@ -207,12 +207,12 @@ func (o *SSHkey) HasPub() bool {
 }
 
 // SetPub gets a reference to the given string and assigns it to the Pub field.
-func (o *SSHkey) SetPub(v string) {
+func (o *Sshkey) SetPub(v string) {
 	o.Pub = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *SSHkey) GetType() string {
+func (o *Sshkey) GetType() string {
 	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
@@ -222,7 +222,7 @@ func (o *SSHkey) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SSHkey) GetTypeOk() (*string, bool) {
+func (o *Sshkey) GetTypeOk() (*string, bool) {
 	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
@@ -230,7 +230,7 @@ func (o *SSHkey) GetTypeOk() (*string, bool) {
 }
 
 // HasType returns a boolean if a field has been set.
-func (o *SSHkey) HasType() bool {
+func (o *Sshkey) HasType() bool {
 	if o != nil && !IsNil(o.Type) {
 		return true
 	}
@@ -239,12 +239,12 @@ func (o *SSHkey) HasType() bool {
 }
 
 // SetType gets a reference to the given string and assigns it to the Type field.
-func (o *SSHkey) SetType(v string) {
+func (o *Sshkey) SetType(v string) {
 	o.Type = &v
 }
 
 // GetComment returns the Comment field value if set, zero value otherwise.
-func (o *SSHkey) GetComment() string {
+func (o *Sshkey) GetComment() string {
 	if o == nil || IsNil(o.Comment) {
 		var ret string
 		return ret
@@ -254,7 +254,7 @@ func (o *SSHkey) GetComment() string {
 
 // GetCommentOk returns a tuple with the Comment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SSHkey) GetCommentOk() (*string, bool) {
+func (o *Sshkey) GetCommentOk() (*string, bool) {
 	if o == nil || IsNil(o.Comment) {
 		return nil, false
 	}
@@ -262,7 +262,7 @@ func (o *SSHkey) GetCommentOk() (*string, bool) {
 }
 
 // HasComment returns a boolean if a field has been set.
-func (o *SSHkey) HasComment() bool {
+func (o *Sshkey) HasComment() bool {
 	if o != nil && !IsNil(o.Comment) {
 		return true
 	}
@@ -271,11 +271,11 @@ func (o *SSHkey) HasComment() bool {
 }
 
 // SetComment gets a reference to the given string and assigns it to the Comment field.
-func (o *SSHkey) SetComment(v string) {
+func (o *Sshkey) SetComment(v string) {
 	o.Comment = &v
 }
 
-func (o SSHkey) MarshalJSON() ([]byte, error) {
+func (o Sshkey) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -283,7 +283,7 @@ func (o SSHkey) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o SSHkey) ToMap() (map[string]interface{}, error) {
+func (o Sshkey) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
@@ -309,38 +309,38 @@ func (o SSHkey) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableSSHkey struct {
-	value *SSHkey
+type NullableSshkey struct {
+	value *Sshkey
 	isSet bool
 }
 
-func (v NullableSSHkey) Get() *SSHkey {
+func (v NullableSshkey) Get() *Sshkey {
 	return v.value
 }
 
-func (v *NullableSSHkey) Set(val *SSHkey) {
+func (v *NullableSshkey) Set(val *Sshkey) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableSSHkey) IsSet() bool {
+func (v NullableSshkey) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableSSHkey) Unset() {
+func (v *NullableSshkey) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableSSHkey(val *SSHkey) *NullableSSHkey {
-	return &NullableSSHkey{value: val, isSet: true}
+func NewNullableSshkey(val *Sshkey) *NullableSshkey {
+	return &NullableSshkey{value: val, isSet: true}
 }
 
-func (v NullableSSHkey) MarshalJSON() ([]byte, error) {
+func (v NullableSshkey) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableSSHkey) UnmarshalJSON(src []byte) error {
+func (v *NullableSshkey) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -267,6 +267,12 @@ type ApiLoadbalancerIdPutRequest struct {
 	ctx context.Context
 	ApiService *LoadBalancerAPIService
 	id string
+	loadbalancerIdPutRequest *LoadbalancerIdPutRequest
+}
+
+func (r ApiLoadbalancerIdPutRequest) LoadbalancerIdPutRequest(loadbalancerIdPutRequest LoadbalancerIdPutRequest) ApiLoadbalancerIdPutRequest {
+	r.loadbalancerIdPutRequest = &loadbalancerIdPutRequest
+	return r
 }
 
 func (r ApiLoadbalancerIdPutRequest) Execute() (*http.Response, error) {
@@ -307,9 +313,12 @@ func (a *LoadBalancerAPIService) LoadbalancerIdPutExecute(r ApiLoadbalancerIdPut
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.loadbalancerIdPutRequest == nil {
+		return nil, reportError("loadbalancerIdPutRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -325,6 +334,8 @@ func (a *LoadBalancerAPIService) LoadbalancerIdPutExecute(r ApiLoadbalancerIdPut
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.loadbalancerIdPutRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err

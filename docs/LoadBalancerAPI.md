@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ## LoadbalancerIdPut
 
-> LoadbalancerIdPut(ctx, id).Execute()
+> LoadbalancerIdPut(ctx, id).LoadbalancerIdPutRequest(loadbalancerIdPutRequest).Execute()
 
 Update load balancer targets
 
@@ -156,10 +156,11 @@ import (
 
 func main() {
 	id := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Load balancer ID
+	loadbalancerIdPutRequest := *openapiclient.NewLoadbalancerIdPutRequest() // LoadbalancerIdPutRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.LoadBalancerAPI.LoadbalancerIdPut(context.Background(), id).Execute()
+	r, err := apiClient.LoadBalancerAPI.LoadbalancerIdPut(context.Background(), id).LoadbalancerIdPutRequest(loadbalancerIdPutRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LoadBalancerAPI.LoadbalancerIdPut``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -183,6 +184,7 @@ Other parameters are passed through a pointer to a apiLoadbalancerIdPutRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **loadbalancerIdPutRequest** | [**LoadbalancerIdPutRequest**](LoadbalancerIdPutRequest.md) |  | 
 
 ### Return type
 
@@ -194,7 +196,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

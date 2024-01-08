@@ -127,9 +127,9 @@ Class | Method | HTTP request | Description
 *LoadBalancerAPI* | [**LoadbalancerIdDelete**](docs/LoadBalancerAPI.md#loadbalanceriddelete) | **Delete** /loadbalancer/{id} | Delete load balancer
 *LoadBalancerAPI* | [**LoadbalancerIdPut**](docs/LoadBalancerAPI.md#loadbalanceridput) | **Put** /loadbalancer/{id} | Update load balancer targets
 *LoadBalancerAPI* | [**LoadbalancerPost**](docs/LoadBalancerAPI.md#loadbalancerpost) | **Post** /loadbalancer | Create a load balancer
-*SSHkeyAPI* | [**SshkeyGet**](docs/SSHkeyAPI.md#sshkeyget) | **Get** /sshkey | List SSH keys
-*SSHkeyAPI* | [**SshkeyIdDelete**](docs/SSHkeyAPI.md#sshkeyiddelete) | **Delete** /sshkey/{id} | Delete SSH key
-*SSHkeyAPI* | [**SshkeyPost**](docs/SSHkeyAPI.md#sshkeypost) | **Post** /sshkey | Create SSH key
+*SshkeyAPI* | [**SshkeyGet**](docs/SshkeyAPI.md#sshkeyget) | **Get** /sshkey | List SSH keys
+*SshkeyAPI* | [**SshkeyIdDelete**](docs/SshkeyAPI.md#sshkeyiddelete) | **Delete** /sshkey/{id} | Delete SSH key
+*SshkeyAPI* | [**SshkeyPost**](docs/SshkeyAPI.md#sshkeypost) | **Post** /sshkey | Create SSH key
 *TagAPI* | [**TagIdGet**](docs/TagAPI.md#tagidget) | **Get** /tag/{id} | Get tags for a resource ID
 *TagAPI* | [**TagIdPatch**](docs/TagAPI.md#tagidpatch) | **Patch** /tag/{id} | Removes tags for a resource ID
 *TagAPI* | [**TagIdPut**](docs/TagAPI.md#tagidput) | **Put** /tag/{id} | Set tags for a resource ID
@@ -152,10 +152,11 @@ Class | Method | HTTP request | Description
  - [InstancePost200Response](docs/InstancePost200Response.md)
  - [InstancePostRequest](docs/InstancePostRequest.md)
  - [LoadBalancer](docs/LoadBalancer.md)
+ - [LoadbalancerIdPutRequest](docs/LoadbalancerIdPutRequest.md)
  - [LoadbalancerPostRequest](docs/LoadbalancerPostRequest.md)
  - [LoadbalancerPostRequestListenersInner](docs/LoadbalancerPostRequestListenersInner.md)
  - [LoadbalancerPostRequestListenersInnerTargetsInner](docs/LoadbalancerPostRequestListenersInnerTargetsInner.md)
- - [SSHkey](docs/SSHkey.md)
+ - [Sshkey](docs/Sshkey.md)
  - [SshkeyPost200Response](docs/SshkeyPost200Response.md)
  - [SshkeyPostRequest](docs/SshkeyPostRequest.md)
  - [VPC](docs/VPC.md)
